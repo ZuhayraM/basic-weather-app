@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to top, #a2c2e9, #d7f1fd);
+    font-family: monospace;
+    background: linear-gradient(to top, #98c6ff, #d4f2ff);
     color: #333;
     display: flex;
     justify-content: center;
@@ -22,7 +22,7 @@ body.dark-mode {
 }
 
 .heading {
-    font-size: 2rem;
+    font-size: 5rem;
     color: #124ac2;
     margin-bottom: 20px;
     text-align: center;
@@ -43,10 +43,13 @@ body.dark-mode {
 }
 
 #weather-image {
+    border: none;
     width: 150px;
     height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #degrees {
@@ -56,9 +59,17 @@ body.dark-mode {
     margin-bottom: 10px;
 }
 
-#description {
+#description, #weather-source {
     font-size: 1.2rem;
     color: #555;
+    margin-top: 10px;
+}
+#weather-source  {
+    margin-top: 30px;
+    font-size: 1rem;
+}
+a {
+    color: rgb(0, 166, 255);
 }
 
 @media (max-width: 600px) {
@@ -86,5 +97,8 @@ body.dark-mode {
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.131);
+}
+#dark-mode-toggle:hover {
+    background: rgba(218, 248, 255, 0.79);
 }
