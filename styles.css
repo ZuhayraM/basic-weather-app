@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: monospace;
+    font-family: 'Arial', sans-serif;
     background: linear-gradient(to top, #98c6ff, #d4f2ff);
     color: #333;
     display: flex;
@@ -13,63 +13,87 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    text-shadow: 0 0 10px #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.dark-mode {
-    background-color: black;
-    color: white;
+    background-color: #333;
+    color: #f1f1f1;
 }
 
 .heading {
-    font-size: 5rem;
+    font-size: 3rem;
+    font-weight: 600;
     color: #124ac2;
     margin-bottom: 20px;
     text-align: center;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .heading {
+    color: #bb86fc;
 }
 
 .weather {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .weather {
+    background-color: #444444;
 }
 
 #weather-image {
-    border: none;
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     object-fit: contain;
     margin-bottom: 20px;
-    font-size: 15px;
-    font-family: 'Courier New', Courier, monospace;
+    display: none;
+}
+
+hr {
+    width: 100%;
 }
 
 #degrees {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #1e88e5;
     margin-bottom: 10px;
 }
 
-#description, #weather-source {
+#description {
     font-size: 1.2rem;
-    color: #555;
+    color: #777;
     margin-top: 10px;
+    text-transform: capitalize;
 }
-#weather-source  {
-    margin-top: 30px;
+
+#weather-source {
     font-size: 1rem;
+    color: #999;
+    margin-top: 20px;
 }
+
 a {
-    color: rgb(0, 166, 255);
+    color: #00a6ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1e88e5;
 }
 
 @media (max-width: 600px) {
@@ -79,11 +103,15 @@ a {
     }
 
     .heading {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     #degrees {
-        font-size: 1.5rem;
+        font-size: 2rem;
+    }
+
+    #description {
+        font-size: 1rem;
     }
 }
 
@@ -93,12 +121,71 @@ a {
     right: 20px;
     background: #fff;
     border: none;
-    padding: 10px;
+    padding: 12px;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 1.6rem;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.131);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 #dark-mode-toggle:hover {
-    background: rgba(218, 248, 255, 0.79);
+    background: rgba(218, 248, 255, 0.8);
+    transform: scale(1.1);
+}
+
+body.dark-mode #dark-mode-toggle {
+    background: #444;
+    color: #f1f1f1;
+}
+
+body.dark-mode #dark-mode-toggle:hover {
+    background: rgba(70, 70, 70, 0.9);
+}
+
+/* Styling for the Search Button */
+.search-btn {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 20%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.search-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.search-btn:focus {
+    outline: none;
+}
+
+input[type="text"] {
+    padding: 12px;
+    width: 80%;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+}
+
+@media (max-width: 600px) {
+    .search-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+    input[type="text"] {
+        width: 90%;
+    }
 }
