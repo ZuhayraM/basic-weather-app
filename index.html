@@ -11,7 +11,7 @@
     <button id="dark-mode-toggle" class="dark-mode-btn">🌙</button>
     <h1 id="header" class="heading text">Weather App</h1>
     <form id="weather" class="weather" action="#">
-        <label for="cityInput">Enter a city name:
+        <label for="cityInput" id="label">Enter a city name:
         <input type="text" id="cityInput" placeholder="e.g. Paris" autocomplete="off">
         <div id="autocomplete"></div>
     </label>
@@ -19,7 +19,7 @@
         <img alt="Weather image" id="weather-image">
         <div id="degrees" class="degrees"></div>
         <div id="description" class="description"></div>
-        <div id="weather-source">Weather source: <a href="https://openweathermap.org" target="_blank" title="Go to OpenWeatherMap.org's page" id="src">OpenWeatherMap</a></div>
+        <div id="weather-source">Weather source: <a href="https://openweathermap.org" target="_blank" title="openweathermap.org" id="src">OpenWeatherMap</a></div>
 </form>
     <script src="script.js"></script>
 </body>

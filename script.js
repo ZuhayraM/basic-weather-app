@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function clickSuggestions(item) {
       cityInput.value = `${item.name}, ${item.sys.country}`;
-      autoComplete.innerHTML = "";
-      autoComplete.display = "none";
+      autoComplete.style.display = "none";
   }
 
   let timeout;
@@ -119,5 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const searchButton = document.getElementById("button");
-  searchButton.addEventListener("click", getWeatherByLocation);
+  searchButton.addEventListener("click", () => {
+    getWeatherByLocation();
+    autoComplete.style.display = "none";
+});
 });

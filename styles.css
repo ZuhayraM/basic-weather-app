@@ -15,6 +15,7 @@
     flex-direction: column;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: default;
   }
   
   body.dark-mode {
@@ -87,13 +88,13 @@
   }
   
   a {
-    color: #00a6ff;
+    color: #00a0f6;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
   }
   
   a:hover {
-    color: #1e88e5;
+    color: #1672c2;
   }
   
   @media (max-width: 600px) {
@@ -172,6 +173,7 @@
     width: 20%;
     transition: background-color 0.3s ease, transform 0.3s ease;
     margin-top: 10px;
+    text-align: center;
   }
   
   .search-btn:hover {
@@ -190,11 +192,11 @@
     border: 1px solid #ccc;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: border 0.5s ease;
   }
   
   input[type="text"]:focus {
-    border-color: #3498db;
+    border: 2px solid #3498db;
   }
   
   @media (max-width: 600px) {
