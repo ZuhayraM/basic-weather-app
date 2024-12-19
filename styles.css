@@ -1,246 +1,248 @@
-   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to top, #98c6ff, #d4f2ff);
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: default;
-  }
-  
-  body.dark-mode {
-    background-color: #333;
-    color: #f1f1f1;
-  }
-  
-  .heading {
-    font-size: 3rem;
-    font-weight: 600;
-    color: #124ac2;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: color 0.3s ease;
-  }
-  
-  body.dark-mode .heading {
-    color: #bb86fc;
-  }
-  
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set a background color and font for the entire app */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to top, #98c6ff, #d4f2ff);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: default;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #124ac2;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .heading {
+  color: #bb86fc;
+}
+
+.weather {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .weather {
+  background-color: #444444;
+}
+
+#weather-image {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  display: none;
+}
+
+hr {
+  width: 100%;
+}
+
+#degrees {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1e88e5;
+  margin-bottom: 10px;
+}
+
+#description {
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+#weather-source {
+  font-size: 1rem;
+  color: #999;
+  margin-top: 20px;
+}
+
+a {
+  color: #00a0f6;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+a:hover {
+  color: #1672c2;
+}
+
+@media (max-width: 600px) {
   .weather {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    max-width: 450px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
+      padding: 20px;
+      width: 90%;
   }
-  
-  body.dark-mode .weather {
-    background-color: #444444;
+
+  .heading {
+      font-size: 2rem;
   }
-  
-  #weather-image {
-    width: 130px;
-    height: 130px;
-    object-fit: contain;
-    margin-bottom: 20px;
-    display: none;
-  }
-  
-  hr {
-    width: 100%;
-  }
-  
+
   #degrees {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #1e88e5;
-    margin-bottom: 10px;
+      font-size: 2rem;
   }
-  
+
   #description {
-    font-size: 1.2rem;
-    color: #777;
-    margin-top: 10px;
-    text-transform: capitalize;
+      font-size: 1rem;
   }
-  
-  #weather-source {
-    font-size: 1rem;
-    color: #999;
-    margin-top: 20px;
-  }
-  
-  a {
-    color: #00a0f6;
-    text-decoration: none;
-    transition: color 0.5s ease;
-  }
-  
-  a:hover {
-    color: #1672c2;
-  }
-  
-  @media (max-width: 600px) {
-    .weather {
+}
+
+@media (max-height: 600px) {
+  .weather {
       padding: 20px;
       width: 90%;
-    }
-  
-    .heading {
-      font-size: 2rem;
-    }
-  
-    #degrees {
-      font-size: 2rem;
-    }
-  
-    #description {
-      font-size: 1rem;
-    }
-  }
-  @media (max-height: 600px) {
-    .weather {
-      padding: 20px;
-      width: 90%;
-    }
-  
-    .heading {
-      font-size: 2rem;
-    }
-  
-    #degrees {
-      font-size: 2rem;
-    }
-  
-    #description {
-      font-size: 1rem;
-    }
-  }
-  
-  #dark-mode-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 50%;
-    font-size: 1.6rem;
-    cursor: pointer;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  #dark-mode-toggle:hover {
-    background: rgba(218, 248, 255, 0.8);
-    transform: scale(1.1);
-  }
-  
-  body.dark-mode #dark-mode-toggle {
-    background: #444;
-    color: #f1f1f1;
-  }
-  
-  body.dark-mode #dark-mode-toggle:hover {
-    background: rgba(70, 70, 70, 0.9);
   }
 
+  .heading {
+      font-size: 2rem;
+  }
+
+  #degrees {
+      font-size: 2rem;
+  }
+
+  #description {
+      font-size: 1rem;
+  }
+}
+
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+  background: rgba(218, 248, 255, 0.8);
+  transform: scale(1.1);
+}
+
+body.dark-mode #dark-mode-toggle {
+  background: #444;
+  color: #f1f1f1;
+}
+
+body.dark-mode #dark-mode-toggle:hover {
+  background: rgba(70, 70, 70, 0.9);
+}
+
+.search-btn {
+  padding: 12px 25px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 20%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.search-btn:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.search-btn:focus {
+  outline: none;
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 80%;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.5s ease;
+}
+
+input[type="text"]:focus {
+  border: 2px solid #3498db;
+}
+
+@media (max-width: 600px) {
   .search-btn {
-    padding: 12px 25px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 20%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 10px;
-    text-align: center;
+      font-size: 1rem;
+      padding: 10px 20px;
   }
-  
-  .search-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
-  }
-  
-  .search-btn:focus {
-    outline: none;
-  }
-  
   input[type="text"] {
-    padding: 12px;
-    width: 80%;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.5s ease;
-  }
-  
-  input[type="text"]:focus {
-    border: 2px solid #3498db;
-  }
-  
-  @media (max-width: 600px) {
-    .search-btn {
-      font-size: 1rem;
-      padding: 10px 20px;
-    }
-    input[type="text"] {
       width: 90%;
-    }
   }
+}
 
-  @media (max-height: 500px) {
-    .search-btn {
+@media (max-height: 500px) {
+  .search-btn {
       font-size: 1rem;
       padding: 10px 20px;
-    }
-    input[type="text"] {
+  }
+  input[type="text"] {
       width: 90%;
-    }
   }
-  
-  /* Autocomplete suggestions styles */
-  #autocomplete {
-    position: absolute;
-    width: 20%;
-    margin: 0 1vw;
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: white;
-    z-index: 999;
-    display: none;
-    border-radius: 5px;
-  }
-  
-  #autocomplete div {
-    padding: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  #autocomplete div:hover {
-    background-color: #f0f0f0;
-    color: #3498db;
-  }
-  
+}
+
+/* Autocomplete suggestions styles */
+#autocomplete {
+  position: absolute;
+  width: 80%;
+  margin: 0 1vw;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 999;
+  display: none;
+  border-radius: 5px;
+}
+
+#autocomplete div {
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#autocomplete div:hover {
+  background-color: #f0f0f0;
+  color: #3498db;
+}
