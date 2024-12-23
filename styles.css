@@ -13,7 +13,7 @@
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 255, 247, 0.295);
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: default;
   }
@@ -33,7 +33,7 @@
   }
   
   body.dark-mode .heading {
-    color: #bb86fc;
+    color: #7644b4;
   }
   
   .weather {

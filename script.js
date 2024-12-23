@@ -55,10 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getWeatherByLocation() {
       const city = document.getElementById("cityInput").value;
-      if (city.trim() === "") {
+      if (cityInput.value.trim() === "") {
           cityInput.style.backgroundColor = "#ffecf3";
           cityInput.style.border = "1px solid #ffc4da";
           cityInput.placeholder = "You live somewhere, right?";
+          cityInput.oninput = () => {
+            cityInput.style.backgroundColor = "white";
+            cityInput.style.border = "1px solid #124ac2";
+            cityInput.placeholder = "e.g. Paris";
+          };
           return;
       }
       const getLocation = encodeURIComponent(city);
@@ -68,12 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(response => response.json())
           .then(data => {
               const temperature = data.main.temp;
+              const sunrise = data.sys.sunrise;
+              const sunset = data.sys.sunset;
               const weatherDescription = data.weather[0].description;
-
+              
               const degrees = document.getElementById("degrees");
               const description = document.getElementById("description");
               const weatherImg = document.getElementById("weather-image");
-
+              document.getElementById("src").href = url;
               degrees.innerText = `Temperature: ${temperature}°C`;
               description.innerText = `Description: ${weatherDescription}`;
 
@@ -110,6 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   weatherImg.style.display = "block";
               } else if (windyDay.test(descriptionText)) {
                 weatherImg.src = "https://www.clipartmax.com/png/middle/59-593346_wind-clipart-weather-symbol-windy-weather-icon.png";
+              } else if (descriptionText.includes("clear sky")) {
+                  weatherImg.src = "https://cdn-icons-png.flaticon.com/512/4148/4148193.png";
+                  weatherImg.style.display = "block";
+
               } else {
                   weatherImg.src = "https://cdn-icons-png.flaticon.com/512/9393/9393425.png";
                   weatherImg.style.display = "block";
