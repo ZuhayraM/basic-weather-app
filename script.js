@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const autoComplete = document.getElementById("autocomplete");
   cityInput.value = "";
   let isDarkMode = false;
-
   darkModeBtn.addEventListener("click", () => {
       isDarkMode = !isDarkMode;
       for (let i = 0; i < text.length; i++) {
@@ -44,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let timeout;
   cityInput.addEventListener("input", (event) => {
+    //   div.innerHTML = "Loading suggestions...";
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         if (cityInput.value === "") {
@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function getWeatherByLocation() {
       const city = document.getElementById("cityInput").value;
       if (city.trim() === "") {
-          alert("Please enter a city name.");
+          cityInput.style.backgroundColor = "#ffecf3";
+          cityInput.style.border = "1px solid #ffc4da";
+          cityInput.placeholder = "You live somewhere, right?";
           return;
       }
       const getLocation = encodeURIComponent(city);
