@@ -13,7 +13,7 @@
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    text-shadow: 0 0 10px rgba(0, 255, 247, 0.295);
+    text-shadow: 0 0 10px rgba(0, 255, 247, 0.097);
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: default;
   }
