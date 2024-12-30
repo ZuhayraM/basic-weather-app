@@ -1,55 +1,80 @@
+const autoComplete = document.getElementById("autocomplete");
+const cityInput = document.getElementById("cityInput");
 document.addEventListener('DOMContentLoaded', () => {
+  cityInput.value = "";
   const darkModeBtn = document.getElementById("dark-mode-toggle");
   const text = document.getElementsByClassName("text");
-  const cityInput = document.getElementById("cityInput");
-  const autoComplete = document.getElementById("autocomplete");
-  cityInput.value = "";
+  
   let isDarkMode = false;
   darkModeBtn.addEventListener("click", () => {
-      isDarkMode = !isDarkMode;
+    isDarkMode = !isDarkMode;
       for (let i = 0; i < text.length; i++) {
           text[i].style.color = isDarkMode ? "white" : "#124ac2";
+          text[i].style.textShadow = isDarkMode ? "0 0 2rem black" : "none";
       }
-      document.body.style.background = isDarkMode ? "black" : "linear-gradient(to top, #a2c2e9, #d7f1fd)";
+      document.body.style.transition = "background-image 3s ease";
+      document.body.style.setProperty("background-image", isDarkMode ? 
+        "linear-gradient(90deg,rgb(19, 43, 127),rgb(60, 59, 158))" 
+      : "linear-gradient(to top, #98c6ff, #d4f2ff)");
+
+      document.getElementById("weather").style.backgroundColor = isDarkMode 
+        ? "rgba(255, 255, 255, 0.9)" 
+        : "rgba(255, 255, 255, 0.9)";
   });
+});
+
 
   const apiKey = '4d8fb5b93d4af21d66a2948710284366';
 
   function getSuggestions(q) {
-      if (q.length < 2) return;
-      const suggestUrl = `https://api.openweathermap.org/data/2.5/find?q=${q}&type=like&cnt=10&appid=${apiKey}`;
-      fetch(suggestUrl)
-          .then(response => response.json())
-          .then(data => displaySuggestions(data.list))
-          .catch(error => console.log(error));
-  }
-
-  function displaySuggestions(suggestions) {
-      autoComplete.style.display = "block";
-      autoComplete.innerHTML = "";
-      suggestions.forEach(item => {
-          const div = document.createElement('div');
-          div.textContent = `${item.name}, ${item.sys.country}`;
-          div.addEventListener('click', () => clickSuggestions(item));
-          autoComplete.appendChild(div);
+    if (q.length < 2) return;
+    const suggestUrl = `https://api.openweathermap.org/data/2.5/find?q=${q}&type=like&cnt=10&appid=${apiKey}`;
+    fetch(suggestUrl)
+      .then(response => response.json())
+      .then(data => {
+          if (data.list.length === 0) {
+              displaySuggestions([], true)
+          } else {
+              displaySuggestions(data.list);
+          }
+      })
+      .catch(error => { 
+          console.log(error); 
       });
-  }
+}
 
+function displaySuggestions(suggestions, notFound) {
+    notFound = notFound || false;
+    autoComplete.style.display = "block";
+    autoComplete.innerHTML = "";
+    if (notFound) {
+        autoComplete.innerHTML = `${cityInput.value} is not a location`;
+    } else {
+        suggestions.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = `${item.name}, ${item.sys.country}`;
+            div.addEventListener('click', () => clickSuggestions(item));
+            autoComplete.appendChild(div);
+        });
+    }
+}
+
+ 
   function clickSuggestions(item) {
       cityInput.value = `${item.name}, ${item.sys.country}`;
       autoComplete.innerHTML = "";
-      autoComplete.display = "none";
+      autoComplete.style.display = "none";
   }
 
   let timeout;
   cityInput.addEventListener("input", (event) => {
-    //   div.innerHTML = "Loading suggestions...";
+      autoComplete.innerHTML = "Loading...";
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         if (cityInput.value === "") {
           autoComplete.style.display = "none";
         }
-          getSuggestions(event.target.value);
+        getSuggestions(event.target.value);
       }, 200);  
   });
 
@@ -63,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cityInput.style.backgroundColor = "white";
             cityInput.style.border = "1px solid #124ac2";
             cityInput.placeholder = "e.g. Paris";
-          };
+        };
           return;
       }
       const getLocation = encodeURIComponent(city);
@@ -75,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const temperature = data.main.temp;
               const sunrise = data.sys.sunrise;
               const sunset = data.sys.sunset;
+              const userTime = Math.floor(Date.now() / 1000) + data.timezone;
               const weatherDescription = data.weather[0].description;
               
               const degrees = document.getElementById("degrees");
@@ -105,10 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
                   weatherImg.src = "https://cdn-icons-png.flaticon.com/512/91/91979.png";
               } else if (rainyDay.test(descriptionText)) {
                   weatherImg.src = "https://i.pinimg.com/564x/73/60/fc/7360fcf6fd40842cad410f8d147d1f8b.jpg";
-                  weatherImg.style.display = "block";
               } else if (sunnyDay.test(descriptionText)) {
-                  weatherImg.src = "https://cdn-icons-png.flaticon.com/512/3917/3917805.png";
-                  weatherImg.style.display = "block";
+                if (userTime >= sunrise && userTime <= sunset) {
+                    weatherImg.src = "https://cdn-icons-png.flaticon.com/512/3917/3917805.png";
+                    weatherImg.style.display = "block";
+                  } else {
+                    weatherImg.src = "https://img.freepik.com/free-vector/yellow-crescent-geometric-shape-vector_53876-164618.jpg?w=360";
+                      weatherImg.style.display = "block";
+                    }  
               } else if (snowyDay.test(descriptionText)) {
                   weatherImg.src = "https://cdn-icons-png.flaticon.com/512/11845/11845405.png";
                   weatherImg.style.display = "block";
@@ -132,5 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const searchButton = document.getElementById("button");
-  searchButton.addEventListener("click", getWeatherByLocation);
-});
+  searchButton.addEventListener("click", () => { 
+    getWeatherByLocation();
+    autoComplete.style.display = "none";
+ });
